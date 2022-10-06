@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Annonce Vehicule{% endblock %}
+
+{% block body %}
+
+    
+        
+        <div class="card col-md-3 m-3 p-2" >
+            <img class="img-fluid" src="{{vehicule.photo}}" alt="">
+            <div >
+                <h5 class="card-title">{{vehicule.titre}}</h5>
+                <div class="metadata">
+                {{ vehicule.marque }}
+                {{ vehicule.modele }}
+                {{ vehicule.PrixJournalier }}
+                Publié le 
+                 {{vehicule.DateEnregistrement|date('d/m/Y à H:i:s')}}
+                </div>
+                <p class="card-text">{{ vehicule.description|raw}}</p>
+               
+            </div>
+
+            {% if app.user %}
+            {{form_start(formCommande, {
+    attr: {
+        novalidate: 'novalidate'
+    }
+})}}
+
+{{ form_row(formCommande.date_heure_depart) }}
+
+{{ form_row(formCommande.date_heure_fin) }}
+
+
+
+
+
+<button type="submit" class="btn btn-success mt-2">
+
+   Valider la Commande
+</button>
+{{form_end(formCommande)}}
+{% else %}
+    <p>Pour poursuivre la commande, connectez-vous</p>
+    <a href="{{ path('app_login') }}" class="btn btn-info">Se connecter</a>
+
+
+
+{% endif %}
+{% endblock %}

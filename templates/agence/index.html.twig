@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello BlogController!{% endblock %}
+
+{% block body %}
+
+    <section class="row articles">
+    
+    {% for vehicule in vehicules %}
+        
+   
+        <div class="card col-md-3 m-3 p-2" >
+            <img class="img-fluid" src="{{vehicule.photo}}" alt="">
+            <div >
+                <h5 class="card-title">{{vehicule.titre}}</h5>
+                <div class="metadata">
+                {{ vehicule.marque }}
+                {{ vehicule.modele }}
+                {{ vehicule.PrixJournalier }}
+                Publié le 
+                 {{vehicule.DateEnregistrement|date('d/m/Y à H:i:s')}}
+                </div>
+                <p class="card-text">{{ vehicule.description|raw}}</p>
+                <a href="{{ path('agence_show', {id: vehicule.id}) }}" class="btn btn-primary">lire la suite</a> 
+            </div>
+        </div>
+     {% endfor %}
+    </section>
+
+{% endblock %}

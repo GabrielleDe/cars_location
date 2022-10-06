@@ -1,0 +1,65 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+BackOffice
+{% endblock %}
+
+{% block body %}
+
+{% for message in app.flashes('success') %}
+    <div class="alert alert-success text-center">{{ message }}</div>
+{% endfor %}
+<table class="table table-bordered text-center">
+    <thead>
+        <tr>
+            <th>Membres</th>
+            <th>Vehicules</th>
+            <th>Date Départ</th>
+            <th>Date fin</th>
+            <th>Prix Total</th>
+            <th>Date d'enregistrement</th>
+
+            <th>Editer</th>
+            <th>Suprimer</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for commande in commandes %}
+        <tr>
+            <td>{{ commande.membre.id }} - {{ commande.membre.nom}} - {{ commande.membre.prenom }} - {{ commande.membre.email }}</td>
+            <td>{{ commande.vehicules.id }} - {{ commande.vehicules.marque }} - {{ commande.vehicules.modele }}</td>
+            <td>{{ commande.DateHeureDepart|date("d/m/Y à H:i:s")}}</td>
+            <td>{{ commande.DateHeureFin|date("d/m/Y à H:i:s")}}</td>
+            <td>{{ commande.Prixtotal}}</td>
+            <td>{{ commande.dateEnregistrement|date("d/m/Y à H:i:s")}}</td>
+            
+            <td><a href="{{ path('admin_edit_commande',{id: commande.id}) }}" class="text-dark"><i class="fas fa-edit"></i></a></td>
+             <td><a onclick="return confirm('voulez-vous supprimer cet article?')" href="{{ path('admin_delete_commande',{id: commande.id}) }}" class="text-dark"><i class="fas fa-trash"></i></a></td> 
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+    {{form_start(formCommande, {
+    attr: {
+        novalidate: 'novalidate'
+    }
+})}}
+
+{{ form_row(formCommande.date_heure_depart) }}
+{{ form_row(formCommande.date_heure_fin) }}
+{{ form_row(formCommande.prix_total)}}
+{{ form_row(formCommande.membre)}}
+{{ form_row(formCommande.vehicules)}}
+
+
+
+
+
+
+<button type="submit" class="btn btn-success mt-2">
+Modifier la commande
+</button>
+{{form_end(formCommande)}}
+
+{% endblock %}
