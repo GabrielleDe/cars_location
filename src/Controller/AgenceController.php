@@ -72,7 +72,7 @@ class AgenceController extends AbstractController
 
         // }
 
-        return $this->render('agence/show.html.twig', [
+        return $this->renderform('agence/show.html.twig', [
             // 'vehicule' => $vehicule,
             // 'formCommande' => $form
         ]);
