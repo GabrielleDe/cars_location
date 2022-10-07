@@ -31,50 +31,50 @@ class AgenceController extends AbstractController
 
     #[Route('/agence/show/{id}', name:'agence_show')]
     public function show($id, VehiculeRepository $repo, Request $globals, EntityManagerInterface $manager){
-        // $vehicule = $repo->find($id);
-        // $commande = new Commande;
-        // $form = $this->createForm(CommandeType::class, $commande);
-        // $form->handleRequest($globals);
+        $vehicule = $repo->find($id);
+        $commande = new Commande;
+        $form = $this->createForm(CommandeType::class, $commande);
+        $form->handleRequest($globals);
         
-        // if($form->isSubmitted() && $form->isValid())
-        // {
-        //     $commande->setDateEnregistrement(new \DateTime());
-        //     $commande->setMembre($this->getUser());
-        //     $commande->setVehicules($vehicule);
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $commande->setDateEnregistrement(new \DateTime());
+            $commande->setMembre($this->getUser());
+            $commande->setVehicules($vehicule);
 
-        //     $table = $globals->request->get("commande");
+            $table = $globals->request->get("commande");
 
-        //     $tableOrigin = $table["date_heure_depart"]['date'];
-        //     $origin = $tableOrigin["year"] . "-" . $tableOrigin["month"] . "-" . $tableOrigin["day"];
+            $tableOrigin = $table["date_heure_depart"]['date'];
+            $origin = $tableOrigin["year"] . "-" . $tableOrigin["month"] . "-" . $tableOrigin["day"];
 
-        //     $origin = date_create($origin);
+            $origin = date_create($origin);
 
-        //     $tableTarget = $table["date_heure_fin"]['date'];
-        //     $target = $tableTarget["year"] . "-" . $tableTarget["month"] . "-" . $tableTarget["day"];
+            $tableTarget = $table["date_heure_fin"]['date'];
+            $target = $tableTarget["year"] . "-" . $tableTarget["month"] . "-" . $tableTarget["day"];
 
-        //     $target = date_create($target);
+            $target = date_create($target);
 
-        //     $interval = date_diff($origin, $target);
+            $interval = date_diff($origin, $target);
             
-        //     // $interval = $interval->format('d');
-        //     $interval = ($interval->d) + ($interval->m) *30 + ($interval->y) *364 ;
-        //     $prix = $vehicule->getPrixJournalier();
-        //     $prix = $prix * $interval;
+            // $interval = $interval->format('d');
+            $interval = ($interval->d) + ($interval->m) *30 + ($interval->y) *364 ;
+            $prix = $vehicule->getPrixJournalier();
+            $prix = $prix * $interval;
 
-        //     $commande->setPrixTotal($prix);
+            $commande->setPrixTotal($prix);
 
             
             
-        //     $manager->persist($commande);
-        //     $manager->flush();
-        //     $this->addFlash('Success', 'La commande a été passé');
-        //     return $this->redirectToRoute('app_agence');
+            $manager->persist($commande);
+            $manager->flush();
+            $this->addFlash('Success', 'La commande a été passé');
+            return $this->redirectToRoute('app_agence');
 
-        // }
+        }
 
         return $this->renderForm('agence/show.html.twig', [
-            // 'vehicule' => $vehicule,
-            // 'formCommande' => $form
+            'vehicule' => $vehicule,
+            'formCommande' => $form
         ]);
         }
 
