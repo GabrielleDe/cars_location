@@ -31,10 +31,10 @@ class AgenceController extends AbstractController
 
     #[Route("/agence/show/{id}", name:"agence_show")]
     public function show($id, VehiculeRepository $repo, Request $globals, EntityManagerInterface $manager){
-        $vehicule = $repo->find($id);
-        $commande = new Commande;
-        $form = $this->createForm(CommandeType::class, $commande);
-        $form->handleRequest($globals);
+        // $vehicule = $repo->find($id);
+        // $commande = new Commande;
+        // $form = $this->createForm(CommandeType::class, $commande);
+        // $form->handleRequest($globals);
         
         // if($form->isSubmitted() && $form->isValid())
         // {
@@ -73,8 +73,8 @@ class AgenceController extends AbstractController
         // }
 
         return $this->renderForm('agence/show.html.twig', [
-            'vehicule' => $vehicule,
-            'formCommande' => $form
+            // 'vehicule' => $vehicule,
+            // 'formCommande' => $form
         ]);
         }
 
