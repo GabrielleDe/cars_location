@@ -21,7 +21,7 @@
                  {{vehicule.DateEnregistrement|date('d/m/Y à H:i:s')}}
                 </div>
                 <p class="card-text">{{ vehicule.description|raw}}</p>
-                <a href="{{ path('show', {id: vehicule.id}) }}" class="btn btn-primary">lire la suite</a> 
+                <a href="{{ path('agence_show', {id: vehicule.id}) }}" class="btn btn-primary">lire la suite</a> 
             </div>
         </div>
      {% endfor %}
